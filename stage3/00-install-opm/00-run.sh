@@ -62,7 +62,6 @@ crontab /home/pi/cronex
 rm /home/pi/cronex
 EOF
 
-rm ${OFX_DST}
 rm -rf ${OFX_DIR}
 
 echo "ofx install successful"
