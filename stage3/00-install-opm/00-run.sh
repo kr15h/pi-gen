@@ -34,6 +34,19 @@ git clone --depth=1 https://github.com/kr15h/ofxPiMapper.git \
 # Enter chroot on Raspberry Pi (act as if you were root on Pi)
 on_chroot << EOF
 
+# Install USB packages and other fun things
+apt-get -y install usbmount dosfstools exfat-fuse exfat-utils
+apt-get -y install tree htop
+
+# Make Raspbian Stretch to mount our USB drives
+sed -i -r "s/MountFlags=slave/MountFlags=shared/" /lib/systemd/system/systemd-udevd.service
+
+# Change memory split, give more to the GPU
+echo "gpu_mem_256=128" >> /boot/config.txt
+echo "gpu_mem_512=256" >> /boot/config.txt
+echo "gpu_mem_1024=512" >> /boot/config.txt
+sed -i -r "s/gpu_mem=[0-9]+//" /boot/config.txt
+
 # Fix ownership and permissions as a result using cp and git clone
 chown -R pi:pi /home/pi/${OFX_DIR}
 chmod -R 755 /home/pi/${OFX_DIR}
@@ -55,9 +68,13 @@ cd /home/pi/${OFX_DIR}/addons/ofxOMXPlayer
 su pi
 make Release -C /home/pi/${OFX_DIR}/addons/ofxPiMapper/example_basic
 
+# Create startup script
+cp /home/pi/${OFX_DIR}/addons/ofxPiMapper/scripts/startup.sh /home/pi/
+chmod a+x /home/pi/startup.sh
+
 # Run app on boot
 crontab -l > /home/pi/cronex
-echo "@reboot /home/pi/${OFX_DIR}/addons/ofxPiMapper/example_basic/bin/example_basic" >> /home/pi/cronex
+echo "@reboot /home/pi/startup.sh" >> /home/pi/cronex
 crontab /home/pi/cronex
 rm /home/pi/cronex
 EOF
