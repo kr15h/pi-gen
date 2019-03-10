@@ -1,0 +1,8 @@
+--- 
+package: 
+  artifacts: 
+    paths: 
+      - ./deploy
+  image: "debian:stretch"
+  script: 
+    - "sudo ./build.sh"
