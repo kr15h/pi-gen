@@ -5,4 +5,7 @@ package:
       - ./deploy
   image: "debian:stretch"
   script: 
-    - "sudo ./build.sh"
+    - "whoami"
+    - "uname -a"
+    - "apt-get -y install coreutils quilt parted qemu-user-static debootstrap zerofree pxz zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl"
+    - "./build.sh"
