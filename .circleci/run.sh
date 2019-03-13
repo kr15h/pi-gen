@@ -5,6 +5,7 @@ uname -a
 ls -l
 apt-get update
 apt-get -y install coreutils quilt parted qemu-user-static debootstrap zerofree pxz zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl xxd kmod
+modprobe binfmt_misc
 touch config
 echo 'IMG_NAME=opm' >> config
 if [ -f ./stage0/EXPORT_NOOBS ]; then rm ./stage0/EXPORT_NOOBS; fi
