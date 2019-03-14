@@ -23,7 +23,7 @@ package:
     - "touch ./stage4/SKIP ./stage5/SKIP"
     - "touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES"
     - "touch ./stage3/EXPORT_IMAGE"
-    - "./build.sh"
+    - "sudo ./build.sh"
 
   artifacts: 
     paths: 
