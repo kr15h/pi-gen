@@ -3,7 +3,6 @@ package:
   artifacts: 
     paths: 
       - ./deploy
-  image: "debian:stretch"
   script: 
     - "whoami"
     - "uname -a"
