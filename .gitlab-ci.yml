@@ -1,17 +1,16 @@
---- 
-package: 
+---
+create_image: 
   tags:
-    - bash
+    - shell
   
   only:
     - opm
 
-  script: 
-    - "whoami"
-    - "uname -a"
-    - "ls -al"
+  before_script:
     - "sudo apt-get update"
     - "sudo apt-get -y install coreutils quilt parted qemu-user-static debootstrap zerofree pxz zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl xxd kmod"
+
+  script: 
     - "touch config"
     - "echo 'IMG_NAME=opm' >> config"
     - "if [ -f ./stage0/EXPORT_NOOBS ]; then rm ./stage0/EXPORT_NOOBS; fi"
@@ -24,7 +23,10 @@ package:
     - "touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES"
     - "touch ./stage3/EXPORT_IMAGE"
     - "sudo ./build.sh"
+  
+  after_script:
+    - "rm -rf ./work"
 
   artifacts: 
     paths: 
-      - ./deploy
+      - ./deploy/*.zip
