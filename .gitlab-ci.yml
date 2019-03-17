@@ -1,14 +1,18 @@
 ---
 create_image: 
   tags:
-    - shell
+    - docker
   
   only:
-    - opm
+    - opm-docker
+
+  image: debian:stretch
 
   before_script:
-    - "sudo apt-get update"
-    - "sudo apt-get -y install coreutils quilt parted qemu-user-static debootstrap zerofree pxz zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl xxd kmod"
+    - "uname -a"
+    - "whoami"
+    - "apt-get update"
+    - "apt-get -y install coreutils quilt parted qemu-user-static debootstrap zerofree pxz zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl xxd kmod"
 
   script: 
     - "touch config"
@@ -23,11 +27,6 @@ create_image:
     - "touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES"
     - "touch ./stage3/EXPORT_IMAGE"
     - "sudo ./build.sh"
-  
-  after_script:
-    - "echo 'Cleaning up after build...'"
-    - "sudo rm -rf ./work"
-    - "sudo rm -rf ./deploy"
 
   artifacts: 
     paths: 
