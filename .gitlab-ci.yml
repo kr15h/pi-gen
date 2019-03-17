@@ -13,6 +13,7 @@ create_image:
     - "whoami"
     - "apt-get update"
     - "apt-get -y install coreutils quilt parted qemu-user-static debootstrap zerofree pxz zip dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl xxd kmod"
+    - "modprobe binfmt_misc"
 
   script: 
     - "touch config"
