@@ -25,7 +25,9 @@ create_image:
     - "sudo ./build.sh"
   
   after_script:
-    - "rm -rf ./work"
+    - "echo 'Cleaning up after build...'"
+    - "sudo rm -rf ./work"
+    - "sudo rm -rf ./deploy"
 
   artifacts: 
     paths: 
